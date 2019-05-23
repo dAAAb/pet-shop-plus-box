@@ -6,7 +6,7 @@ contract Adoption {
 
   constructor() public {
     for (uint i=0;i<16;++i) {
-      prices[i] = 1 ether;  
+      prices[i] = 0.001 ether;  
     }
   }
 

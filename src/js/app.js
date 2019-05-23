@@ -11,10 +11,11 @@ App = {
       for (i = 0; i < data.length; i ++) {
         petTemplate.find('.panel-title').text(data[i].name);
         petTemplate.find('img').attr('src', data[i].picture);
-        //petTemplate.find('.pet-breed').text(data[i].breed);
-       // petTemplate.find('.pet-age').text(data[i].age);
-     //   petTemplate.find('.pet-location').text(data[i].location);
+        petTemplate.find('.pet-breed').text(data[i].breed);
+        petTemplate.find('.pet-age').text(data[i].age);
+        petTemplate.find('.pet-location').text(data[i].location);
         petTemplate.find('.btn-adopt').attr('data-id', data[i].id);
+        petTemplate.find('.atvImg-rendered-layer').attr('style', style='background-image: url("'+data[i].picture+'");');
 
         petsRow.append(petTemplate.html());
       }
@@ -41,7 +42,7 @@ App = {
     }
     // If no injected web3 instance is detected, fall back to Ganache
     else {
-      App.web3Provider = new Web3.providers.HttpProvider('http://localhost:7545');
+      App.web3Provider = new Web3.providers.HttpProvider('https://mainnet.infura.io/');
     }
     web3 = new Web3(App.web3Provider);
 
@@ -81,10 +82,9 @@ App = {
 
       for (i = 0; i < adopters.length; i++) { 
         $('.panel-pet').eq(i).find('.pet-price').text(prices[i] / (1000000000000000000) );     
-        $('.panel-pet').eq(i).find('.pet-owner').text(adopters[i]);
-        /*if (adopters[i] !== '0x0000000000000000000000000000000000000000') {
-          $('.panel-pet').eq(i).find('button').text('Success').attr('disabled', true);
-        }*/
+        if (adopters[i] !== '0x0000000000000000000000000000000000000000') {
+          $('.panel-pet').eq(i).find('.pet-owner').text(adopters[i].substring(0,20) + '...');
+        }
       }
     }).catch(function(err) {
       console.log(err.message);
