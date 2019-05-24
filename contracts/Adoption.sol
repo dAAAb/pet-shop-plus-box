@@ -26,4 +26,12 @@ contract Adoption {
   function getAdopters() public view returns (address[16] memory, uint[16] memory) {
     return (adopters,  prices);
   }
+  address public owner;
+  modifier onlyOwner() {
+        require (msg.sender != owner);
+        _;
+      }
+  function withdraw() public {
+    msg.sender.transfer(address(this).balance);
+  }
 }
