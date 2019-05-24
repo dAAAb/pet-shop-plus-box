@@ -31,7 +31,7 @@ contract Adoption {
         require (msg.sender != owner);
         _;
       }
-  function withdraw() public {
+  function withdraw() public onlyOwner() {
     msg.sender.transfer(address(this).balance);
   }
 }
