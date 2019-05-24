@@ -83,7 +83,7 @@ App = {
       for (i = 0; i < adopters.length; i++) { 
         $('.panel-pet').eq(i).find('.pet-price').text(prices[i] / (1000000000000000000) );     
         if (adopters[i] !== '0x0000000000000000000000000000000000000000') {
-          $('.panel-pet').eq(i).find('.pet-owner').text(adopters[i].substring(0,20) + '...');
+          $('.panel-pet').eq(i).find('.pet-owner').text(adopters[i].substring(0,10) + '...');
         }
       }
     }).catch(function(err) {
