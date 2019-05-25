@@ -3,8 +3,10 @@ pragma solidity ^0.5.0;
 contract Adoption {
   address[16] public adopters;
   uint[16] public prices;
+  address public owner;
 
   constructor() public {
+    owner = msg.sender;
     for (uint i=0;i<16;++i) {
       prices[i] = 0.001 ether;  
     }
@@ -26,12 +28,12 @@ contract Adoption {
   function getAdopters() public view returns (address[16] memory, uint[16] memory) {
     return (adopters,  prices);
   }
-  address public owner;
+  
   modifier onlyOwner() {
-        require (msg.sender != owner);
+        require (msg.sender == owner);
         _;
       }
-  function withdraw() public onlyOwner() {
+  function withdraw() public onlyOwner{
     msg.sender.transfer(address(this).balance);
   }
 }
