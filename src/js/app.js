@@ -42,6 +42,9 @@ App = {
     }
     // If no injected web3 instance is detected, fall back to Ganache
     else {
+  	  //MetaMask alert
+        alert('No web3? Please use google chrome and metamask plugin to enter this Dapp!', null, null);
+        $('.container').find('.github-link').attr('class', 'github-link active');
       App.web3Provider = new Web3.providers.HttpProvider('https://mainnet.infura.io/');
       //App.web3Provider = new Web3.providers.HttpProvider('https://ropsten.infura.io/');
     }
