@@ -5,6 +5,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta property="og:image" content="https://cryptoseafood.com/images/CRYPTOSEAFOOD-OG3.png">
+    <meta property="og:title" content="CryptoSeafood - A Blockcahin Meme Game about Asia Masters">
+    <meta property="og:description" content="Thanks your Seafood Master and get good luck.">
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="CryptoSeafood - A Blockcahin Meme Game about Asia Masters" />
+    <meta name="twitter:description" content="Thanks your Seafood Master and get good luck." />
+    <meta name="twitter:image" content="https://cryptoseafood.com/images/CRYPTOSEAFOOD-OG3.png" />
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>CryptoSeafood</title>
 
@@ -20,7 +26,7 @@
     <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
     <link href="https://unpkg.com/nes.css/css/nes.css" rel="stylesheet" />
   </head>
-  <body>
+  <body style="font-family:'misakigothic'" onclick="playCoin()">
     <div class="container">
       <div class="row" style="margin-top: 20px">
         <div class="col-xs-12 col-sm-8 col-sm-push-2">
@@ -67,10 +73,91 @@
     <script src="js/truffle-contract.js"></script>
     <script src="js/app.js"></script>
     <script src="js/atvImg.js"></script>
-    <script>
-     $(document).ready(function() {
-      atvImg();
-     }); 
-    </script>
+	<script>
+	     $(document).ready(function() {
+	      atvImg();
+	     }); 
+	      //  =============================
+	      //  === AUDIO BITS AND PIECES ===
+	      //  =============================
+
+	      var audio = new Audio(), //generic audio object for testing
+	        canPlayOgg = !!audio.canPlayType && audio.canPlayType('audio/ogg; codecs="vorbis"') !== "",
+	        canPlayMP3 = !!audio.canPlayType && audio.canPlayType('audio/mp3') !== "",
+
+	        //setup audio elements to embed in page,
+	        audioObjects = [],
+	        audioSelectTheme,
+	        audioWorldTheme,
+	        audioNewWorld,
+	        mapTravel,
+	        levelBegin,
+	        audioMarioJump,
+	        audioFlight,
+	        audioCoin,
+	        audioBump,
+	        audioStomp,
+	        audioKick,
+	        audioTailSpin,
+	        audioMushroom,
+	        audioPowerUp,
+	        audioRacoon;
+
+
+	        audioSelectTheme = createAudio("https://s3-us-west-2.amazonaws.com/s.cdpn.io/12207/smb3-world-map", true);
+	        audioWorldTheme = createAudio("https://s3-us-west-2.amazonaws.com/s.cdpn.io/12207/smb3-overworld-1", true);
+	        audioNewWorld = createAudio("https://s3-us-west-2.amazonaws.com/s.cdpn.io/12207/smb3_map_new_world");
+	        mapTravel = createAudio("https://s3-us-west-2.amazonaws.com/s.cdpn.io/12207/smb3_map_travel");
+	        levelBegin = createAudio("https://s3-us-west-2.amazonaws.com/s.cdpn.io/12207/smb3_enter_level");
+	        audioMarioJump = createAudio("https://s3-us-west-2.amazonaws.com/s.cdpn.io/12207/smb3_jump");
+	        audioFlight = createAudio("https://s3-us-west-2.amazonaws.com/s.cdpn.io/12207/smb3_pmeter");
+	        audioCoin = createAudio("https://s3-us-west-2.amazonaws.com/s.cdpn.io/12207/smb3_coin");
+	        audioBump = createAudio("https://s3-us-west-2.amazonaws.com/s.cdpn.io/12207/smb3_bump");
+	        audioStomp = createAudio("https://s3-us-west-2.amazonaws.com/s.cdpn.io/12207/smb3_stomp");
+	        audioKick = createAudio("https://s3-us-west-2.amazonaws.com/s.cdpn.io/12207/smb3_kick");
+	        audioTailSpin = createAudio("https://s3-us-west-2.amazonaws.com/s.cdpn.io/12207/smb3_tail");
+	        audioMushroom = createAudio("https://s3-us-west-2.amazonaws.com/s.cdpn.io/12207/smb3_mushroom_appears");
+	        audioPowerUp = createAudio("https://s3-us-west-2.amazonaws.com/s.cdpn.io/12207/smb3_power-up");
+
+	      audioSelectTheme.play();
+
+	      //generic function to create all new audio elements equal, with preload
+	      function createAudio (audioFile, loopSet) {
+	        var tempAudio = new Audio(),
+	          audioExt;
+
+	        if (canPlayMP3) {
+	          audioExt = '.mp3';
+	        } else if (canPlayOgg) {
+	          audioExt = '.ogg';
+	        }
+
+	        tempAudio.setAttribute('src', audioFile + audioExt);
+	        tempAudio.preload = 'auto';
+	        tempAudio.loop = (loopSet === true ? true : false);
+
+	        return tempAudio;
+	      }
+	      function marioFlatSound() {
+				//play movement sound, delay by 200ms, then play again
+				mapTravel.play();
+				window.setTimeout(function () { mapTravel.currentTime = 0.01; }, 200);
+	      }
+	      marioFlatSound();
+	      //coin
+	      var coin = document.querySelectorAll('.coin');
+	      var i, coinLength = coin.length;
+	      for (i = 0; i < coinLength; i++) {
+	        coin[i].addEventListener('animationstart', playCoin);
+	        coin[i].addEventListener('webkitAnimationStart', playCoin);
+	      }
+	      function playCoin() {
+	        if (!audioCoin.paused) {
+	          audioCoin.currentTime = 0.01;
+	        } else {
+	          audioCoin.play();
+	        }
+	      }
+	    </script>
   </body>
 </html>
